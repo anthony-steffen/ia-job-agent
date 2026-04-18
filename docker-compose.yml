@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # Banco de Dados para o NestJS (Negócio)
+  db-app:
+    image: postgres:15
+    container_name: db-app-jobs
+    environment:
+      POSTGRES_USER: user_nestjs
+      POSTGRES_PASSWORD: pass_nestjs
+      POSTGRES_DB: jobs_business_db
+    ports:
+      - "5433:5432" # Porta mapeada para 5433 para não conflitar
+    volumes:
+      - pgdata_app:/var/lib/postgresql/data
+
+  # Banco de Dados para o Agno/Python (Histórico de IA)
+  db-ai:
+    image: postgres:15
+    container_name: db-ai-agent
+    environment:
+      POSTGRES_USER: user_python
+      POSTGRES_PASSWORD: pass_python
+      POSTGRES_DB: ai_agent_history_db
+    ports:
+      - "5434:5432" # Porta mapeada para 5434
+    volumes:
+      - pgdata_ai:/var/lib/postgresql/data
+
+volumes:
+  pgdata_app:
+  pgdata_ai:

@@ -1,64 +1,81 @@
-# IA Job Agent
+## 🤖 Agente de Candidatura Automática - Backend
 
-Projeto de automação com inteligência artificial para gerenciamento de tarefas e agentes de trabalho.
+Este é o núcleo de inteligência e automação do projeto. O backend é responsável por capturar vagas, processar currículos através de IA e gerenciar o fluxo de candidaturas de forma eficiente.
 
-## Objetivo
+## 🏗️ Arquitetura do Sistema
 
-Este repositório contém a base para um agente de automação que pode ser adaptado para executar trabalhos, processar tarefas e integrar com serviços externos.
+O projeto utiliza uma arquitetura baseada em Camadas (Layered Architecture) e segue os princípios do SOLID para garantir que o sistema seja testável e fácil de expandir.
 
-## Conteúdo
+## Componentes Principais
 
-- `README.md`: documentação e instruções de uso.
-- `.gitignore`: arquivos e pastas ignorados pelo Git.
-- `LICENSE`: licença do projeto.
+API Layer (Controllers): Responsável por receber as requisições do frontend e validar os dados de entrada
 
-## Como começar
+Service Layer (Business Logic): Onde reside a lógica de negócio, como as regras de matching entre vaga e currículo.
 
-1. Clone o repositório:
-   ```bash
-   git clone https://seu-repositorio.git
-   cd ia-job-agent
-   ```
-2. Crie e ative um ambiente virtual (Python) ou instale dependências apropriadas.
-   - Python:
-     ```bash
-     python -m venv venv
-     source venv/Scripts/activate   # Windows
-     pip install -r requirements.txt
-     ```
-   - Node.js (se aplicável):
-     ```bash
-     npm install
-     ```
-3. Configure variáveis de ambiente, se houver, criando um arquivo `.env` com as chaves necessárias.
+AI Integration (Agno/OpenAI): Camada especializada na comunicação com modelos de linguagem para geração de conteúdo personalizado.
 
-## Estrutura sugerida de arquivos
+Worker Layer (Task Queue): Sistema de filas para processar o scraping de vagas e chamadas de IA sem travar a execução da API principal.
 
-- `main.py` ou `index.js`: ponto de entrada da aplicação.
-- `agents/`: código dos agentes de trabalho.
-- `tasks/`: definição e processamento de tarefas.
-- `configs/`: configurações e credenciais.
+Data Layer (Prisma ORM): Interface de comunicação com o banco de dados.
 
-## Como usar
+## 🛠️ Stack Tecnológica
 
-1. Defina as tarefas ou comandos que o agente deve executar.
-2. Execute o script principal.
-   ```bash
-   python main.py
-   ```
-   ou
-   ```bash
-   npm start
-   ```
-3. Verifique os logs de saída e atualize as configurações conforme necessário.
+Runtime: Node.js (v18+)
 
-## Boas práticas
+Framework: NestJS (TypeScript)
 
-- Mantenha dependências atualizadas.
-- Use controle de versão para rastrear mudanças.
-- Não versionar arquivos sensíveis como `.env`.
-- Teste localmente antes de subir para produção.
+Banco de Dados: PostgreSQL
 
-## Licença
+ORM: Prisma
 
-Este projeto está licenciado sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+Processamento de IA: Agno Framework (ou integração direta com OpenAI/Anthropic)
+
+Automação/Scraping: Playwright
+
+Filas e Mensageria: BullMQ + Redis
+
+## 🚀 Como Iniciar
+
+Pré-requisitos
+Node.js instalado (LTS recomendado).
+
+Docker (opcional, mas recomendado para rodar PostgreSQL e Redis rapidamente).
+
+Uma chave de API da OpenAI (ou provedor de IA de sua escolha).
+
+1. Clonar e Instalar
+Bash
+git clone <https://github.com/seu-usuario/nome-do-repositorio.git>
+cd nome-do-repositorio
+npm install
+2. Configurar Variáveis de Ambiente
+Crie um arquivo .env na raiz do projeto:
+
+Snippet de código
+
+# Banco de Dados
+
+DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"
+
+# Redis (para as filas)
+
+REDIS_HOST="localhost"
+REDIS_PORT=6379
+
+# IA
+
+OPENAI_API_KEY="sua_chave_aqui"
+3. Configurar o Banco de Dados
+Bash
+npx prisma migrate dev --name init
+4. Rodar o Projeto
+Bash
+
+# Modo de desenvolvimento
+
+npm run start:dev
+
+# Modo de produção
+
+npm run build
+npm run start:prod

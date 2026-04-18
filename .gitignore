@@ -14,3 +14,17 @@ venv/
 *.tmp
 *.swp
 *.swo
+
+# Node
+node_modules/
+dist/
+.env
+
+# Python
+__pycache__/
+venv/
+*.pyc
+.env
+
+# Docker/DB
+data/
